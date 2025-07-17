@@ -1,0 +1,1 @@
+Solutions to problems using algorithms are presented, as well as their own classes of basic structures.

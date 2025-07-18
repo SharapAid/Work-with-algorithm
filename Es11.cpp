@@ -31,17 +31,14 @@ public:
 };
 
 void LinkedList::push_front(int value){
-    Node* current_node = head;
+    Node* new_node = new Node(value);
     if(head == nullptr){
-        Node* new_node = new Node(value);
         head = new_node;
     }
     else{
-        while(current_node->next != nullptr){
-            current_node = current_node->next;
-        }
-        Node* new_node = new Node(value);
-        current_node->next = new_node;
+        Node* temp = head;
+        head = new_node;
+        head->next = temp;
     }
 }
 
@@ -73,6 +70,15 @@ LinkedList::Node* LinkedList::find(int value){
 void LinkedList::sort(){
     Node* current_node = head;
     while(current_node->next != nullptr){
+        Node* next_node = current_node->next;
+        while (next_node->next != nullptr){
+            if(current_node->m_data < next_node->m_data){
+                Node* temp = current_node;
+                Node* temp2 = current_node->next;
+                current_node = temp2;
+                current_node->next = temp;
+            }
+        }
     }
 }
 
@@ -82,5 +88,6 @@ int main(){
     list.push_front(3);
     list.push_front(4);
     list.push_front(1);
+    list.sort();
     return 0;
 }

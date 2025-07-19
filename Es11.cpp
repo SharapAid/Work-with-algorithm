@@ -27,7 +27,15 @@ public:
     void push_front(int value);
     void pop_front();
     Node* find(int value);
+    bool is_empty(){
+        if(this->head == nullptr){
+            return true;
+        }
+        return false;
+    }
+
     void sort();
+    LinkedList merge(LinkedList& list1, LinkedList& list2);
 };
 
 void LinkedList::push_front(int value){
@@ -113,15 +121,44 @@ void LinkedList::sort(){
     }
     while(true);
 }
+LinkedList LinkedList::merge(LinkedList& list1, LinkedList& list2){
+    LinkedList new_list;
+    Node* dumpe_node = new Node(0);
+    Node* current_node_list1 = list1.head;
+    Node* current_node_list2 = list2.head;
+    Node* current_node_new_list = dumpe_node;
+    
+    while(current_node_list1 != nullptr){
+        Node* new_node= new Node(current_node_list1->m_data);
+        current_node_new_list->next = new_node;
+        current_node_list1 = current_node_list1->next;
+        current_node_new_list = current_node_new_list->next;
+    }
+
+    while(current_node_list2 != nullptr){
+        Node* new_node= new Node(current_node_list2->m_data);
+        current_node_new_list->next = new_node;
+        current_node_list2 = current_node_list2->next;
+        current_node_new_list = current_node_new_list->next;
+    }
+
+
+    if(dumpe_node->next != nullptr){
+        Node* temp = dumpe_node->next;
+        delete dumpe_node;
+        dumpe_node = nullptr;
+        new_list.head = temp;
+    }
+    else{
+        delete dumpe_node;
+        dumpe_node = nullptr;
+    }
+    return new_list;
+}
 
 int main(){
     LinkedList list;
-    list.push_front(21);
-    list.push_front(3);
-    list.push_front(4);
-    list.push_front(1);
-    list.push_front(14);
-    list.push_front(2);
-    list.sort();
+    LinkedList list2;
+    LinkedList list3 = list.merge(list, list2);
     return 0;
 }

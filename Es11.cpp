@@ -68,18 +68,50 @@ LinkedList::Node* LinkedList::find(int value){
 }
 
 void LinkedList::sort(){
-    Node* current_node = head;
-    while(current_node->next != nullptr){
+    if(head == nullptr || head->next == nullptr){
+        return;
+    }
+    do{
+        Node* current_node = head;
         Node* next_node = current_node->next;
-        while (next_node->next != nullptr){
-            if(current_node->m_data < next_node->m_data){
-                Node* temp = current_node;
-                Node* temp2 = current_node->next;
-                current_node = temp2;
-                current_node->next = temp;
+        Node* pred_node = nullptr;
+        bool is_change = false;
+        while(next_node != nullptr){
+            if(current_node->m_data < current_node->next->m_data){
+                if(current_node == head){
+                    Node* temp = head;
+                    Node* temp2 = next_node;
+                    Node* temp3 = next_node->next;
+                    head = temp2;
+                    head->next = temp;
+                    temp->next = temp3;
+                    is_change = true;
+                }
+                else{
+                    Node* temp = next_node;
+                    Node* temp2 = pred_node->next;
+                    Node* temp3 = next_node->next;
+                    pred_node->next = temp;
+                    temp->next = temp2;
+                    temp2->next = temp3;
+                    is_change = true;
+                }
+                pred_node = next_node;
             }
+            else{
+                pred_node = current_node;
+                current_node = next_node;
+            }
+            if(current_node == nullptr){
+                break;
+            }
+            next_node = current_node->next;
+        }
+        if(!is_change){
+            break;
         }
     }
+    while(true);
 }
 
 int main(){
@@ -88,6 +120,8 @@ int main(){
     list.push_front(3);
     list.push_front(4);
     list.push_front(1);
+    list.push_front(14);
+    list.push_front(2);
     list.sort();
     return 0;
 }

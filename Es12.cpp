@@ -34,18 +34,29 @@ void SelectionSort(int* arr, int size){
     }        
 }
 
-void InsertionSort(int* arr, int size){
-    
+void InsertionSort(int arr[], int size){
+    int key = 0;
+    int i = 1;
+    while(i < size){
+        key = arr[i];
+        int j = i-1;
+        while(j >= 0 && arr[j] > key){
+            arr[j+1] = arr[j];
+            j--;
+        }
+        arr[j+1] = key;
+        i++;
+    }
 }
 
 int main(){
-    int arr[] = {1, 18, 6, 3, 8, 4, 32, 3};
+    int arr[] = {4,3,8,0,5,2,7,5};
     int n = sizeof(arr) / sizeof(arr[0]);
     for(int number : arr){
         std::cout<<number<<'\t';
     }
     std::cout<<'\n';
-    SelectionSort(arr, n);
+    InsertionSort(arr, n);
     for(int number : arr){
         std::cout<<number<<'\t';
     }

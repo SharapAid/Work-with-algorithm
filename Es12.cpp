@@ -34,7 +34,7 @@ void SelectionSort(int* arr, int size){
     }        
 }
 
-void InsertionSort(int arr[], int size){
+void InsertionSort(int* arr, int size){
     int key = 0;
     int i = 1;
     while(i < size){
@@ -49,17 +49,44 @@ void InsertionSort(int arr[], int size){
     }
 }
 
+void PrintArrey(int* arr, int size){
+    for(int i = 0; i < size; i++){
+        std::cout<<arr[i]<<'\t';
+    }
+    std::cout<<'\n';
+}
+
+int Partition(int* arr, int left, int right){
+    int pivot = arr[right];
+    int i = (left - 1); 
+    for (int j = left; j <= right - 1; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
+    int temp = arr[i + 1];
+    arr[i + 1] = arr[right];
+    arr[right] = temp;
+
+    return (i + 1);
+}
+
+void QuickSort(int* arr, int left, int right){
+    if(left < right){
+        int pivot = Partition(arr, left, right);
+        QuickSort(arr, left, pivot-1);
+        QuickSort(arr, pivot + 1, right);
+    }   
+}
+
 int main(){
     int arr[] = {4,3,8,0,5,2,7,5};
     int n = sizeof(arr) / sizeof(arr[0]);
-    for(int number : arr){
-        std::cout<<number<<'\t';
-    }
-    std::cout<<'\n';
-    InsertionSort(arr, n);
-    for(int number : arr){
-        std::cout<<number<<'\t';
-    }
-    std::cout<<'\n';
+    PrintArrey(arr, n);
+    QuickSort(arr, 0, n-1);
+    PrintArrey(arr, n);
     return 0;
 }

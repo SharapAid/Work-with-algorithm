@@ -119,11 +119,31 @@ void QuickSort2(int* arr, int left, int right){
     }   
 }
 
+void BubleSortMax(int* arr, int size){
+    do{
+        int i = 0;
+        bool is_merge = false;
+        while(i + 1< size){
+            if(arr[i] > arr[i+1]){
+                int temp = arr[i+1];
+                arr[i+1] = arr[i];
+                arr[i] = temp;
+                is_merge = true;
+            }
+            i++;
+        }
+        size --;
+        if(!is_merge){
+            break;
+        }
+    }
+    while(size > 0);
+}
+
 int main(){
     int arr[] = {4,3,8,0,5,2,7,5};
     int n = sizeof(arr) / sizeof(arr[0]);
     PrintArrey(arr, n);
-    QuickSort2(arr, 0, n-1);
     PrintArrey(arr, n);
     return 0;
 }

@@ -56,6 +56,7 @@ void PrintArrey(int* arr, int size){
     std::cout<<'\n';
 }
 
+//Sort model Lomuto.
 int Partition(int* arr, int left, int right){
     int pivot = arr[right];
     int i = (left - 1); 
@@ -82,11 +83,47 @@ void QuickSort(int* arr, int left, int right){
     }   
 }
 
+
+//Sort model Hoare.
+int Partition2(int* arr, int left, int right){
+    int pivot = arr[left];
+    int i = left - 1;
+    int j = right + 1;
+
+    while (true) {
+        do{
+            i++;
+        } 
+        while (arr[i] < pivot);
+
+        do{
+            j--;
+        } 
+        while (arr[j] > pivot);
+        
+        if(i >= j){
+            return j;
+        }
+
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
+
+void QuickSort2(int* arr, int left, int right){
+    if(left < right){
+        int pivot = Partition2(arr, left, right);
+        QuickSort(arr, left, pivot);
+        QuickSort(arr, pivot + 1, right);
+    }   
+}
+
 int main(){
     int arr[] = {4,3,8,0,5,2,7,5};
     int n = sizeof(arr) / sizeof(arr[0]);
     PrintArrey(arr, n);
-    QuickSort(arr, 0, n-1);
+    QuickSort2(arr, 0, n-1);
     PrintArrey(arr, n);
     return 0;
 }

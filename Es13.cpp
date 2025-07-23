@@ -31,6 +31,8 @@ public:
     void push_front(T value);
     void pop_back();
     void pop_front();
+    Node* find(T value);
+    void sort();
 };
 
 template<class T>
@@ -94,6 +96,42 @@ void DoublyLinkedList<T>::pop_back(){
             tail = temp;
             tail->next = nullptr;  
         }
+    }
+}
+
+
+template<class T>
+DoublyLinkedList<T>::Node* DoublyLinkedList<T>::find(T value){
+    Node* current_node = head;
+    while(current_node != nullptr && current_node->m_value != value){
+        current_node = current_node->next;
+    }
+    return current_node;
+}
+
+template<class T>
+void DoublyLinkedList<T>::sort(){
+    if(head != nullptr){
+        do{
+            bool is_merge = false;
+            Node* current_node = head;
+            Node* next_node = current_node->next;
+            while(current_node->next != nullptr){
+                if(current_node->m_value > next_node->m_value){
+                    T temp = current_node->m_value;
+                    current_node->m_value = next_node->m_value;
+                    next_node->m_value = temp;
+                    is_merge = true;
+                    
+                }
+                current_node = current_node->next;
+                next_node = current_node -> next;
+            }
+            if(!is_merge){
+                break;
+            }
+        }
+        while(true);
     }
 }
 

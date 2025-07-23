@@ -33,6 +33,9 @@ public:
     void pop_front();
     Node* find(T value);
     void sort();
+    bool is_empty(){
+        return head == nullptr;
+    }
 };
 
 template<class T>

@@ -7,7 +7,7 @@ private:
         T m_value;
         Node* next;
         Node* pred;
-        Node(): m_value(T), next(nullptr), pred(nullptr){}
+        Node(): m_value(T()), next(nullptr), pred(nullptr){}
         Node(T value): m_value(value), next(nullptr), pred(nullptr){}
     };
     Node* head;
